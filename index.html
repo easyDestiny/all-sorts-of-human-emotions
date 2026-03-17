@@ -3,489 +3,451 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>희(喜)の애락(樂) — 기쁨과 슬픔, 그 사이의 이야기</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <title>희(喜)の애락(樂) — 일상의 뉴스</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg:     #0e0c0a;
-      --bg2:    #161210;
-      --bg3:    #1e1a16;
-      --ink:    #f0e8d8;
-      --gold:   #c9a84c;
-      --gold2:  #e8c97a;
-      --red:    #8b2020;
-      --red2:   #b33030;
-      --muted:  #8a7a62;
-      --border: #2e2820;
-      --bdr2:   #3d3428;
-      --shadow: 0 4px 32px rgba(0,0,0,0.7);
+      --bg:#faf7f2; --paper:#fff9f0; --ink:#1c1208; --ink2:#3a2e1e;
+      --red:#9b2335; --gold:#b8860b; --gold2:#d4a017; --muted:#7a6a52;
+      --border:#d6c9b0; --border2:#e8ddc8; --shadow:0 4px 24px rgba(28,18,8,0.10);
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;min-height:100vh;overflow-x:hidden;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(201,168,76,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(139,32,32,.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
-
-    /* HEADER */
-    header{position:relative;text-align:center;border-bottom:1px solid var(--bdr2);background:var(--bg2);overflow:hidden;z-index:10;}
-    .hdr-deco{width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--red),var(--gold),transparent);}
-    .hdr-top{padding:10px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted);letter-spacing:.1em;}
-    .hanja-sm{font-family:'Nanum Myeongjo',serif;font-size:13px;color:var(--gold);opacity:.7;letter-spacing:.3em;}
-    .masthead{padding:40px 24px 32px;position:relative;}
-    .masthead::before{content:'喜怒哀樂';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Nanum Myeongjo',serif;font-size:clamp(5rem,15vw,12rem);color:rgba(201,168,76,.04);letter-spacing:.2em;pointer-events:none;white-space:nowrap;font-weight:800;}
-    .title-main{position:relative;z-index:1;}
-    .title-ko{font-family:'Nanum Myeongjo',serif;font-size:clamp(2.2rem,7vw,4.8rem);font-weight:800;letter-spacing:.08em;line-height:1.1;color:var(--gold2);text-shadow:0 0 40px rgba(201,168,76,.3);}
-    .title-ko .hj{color:var(--gold);font-size:.75em;vertical-align:middle;}
-    .title-ko .no{color:var(--muted);font-size:.8em;margin:0 4px;}
-    .title-ko .red{color:#c0504a;}
-    .title-sub{margin-top:10px;font-size:12px;color:var(--muted);letter-spacing:.25em;font-weight:300;text-transform:uppercase;}
-    .brush{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:12px auto 0;opacity:.6;}
-
-    /* NAV */
-    nav{background:var(--bg3);border-bottom:1px solid var(--bdr2);display:flex;justify-content:center;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.5);}
-    nav button{background:none;border:none;padding:14px 22px;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
-    nav button:hover{color:var(--gold);}
-    nav button.active{color:var(--gold2);border-bottom-color:var(--gold);}
-    .nav-write{color:var(--red2)!important;border-left:1px solid var(--border);}
-    .nav-write:hover{color:#d44!important;background:rgba(139,32,32,.15)!important;}
-    .nav-write.active{color:#d44!important;border-bottom-color:var(--red2)!important;}
-
-    /* MAIN */
-    main{max-width:1080px;margin:0 auto;padding:44px 20px 80px;position:relative;z-index:1;}
-    .view{display:none;}
-    .view.active{display:block;animation:fadein .35s ease;}
-    @keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-    /* SECTION RULE */
-    .sec-rule{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
-    .sec-rule h2{font-family:'Nanum Myeongjo',serif;font-size:1rem;font-weight:700;white-space:nowrap;color:var(--gold);letter-spacing:.15em;}
-    .sec-rule::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--bdr2),transparent);}
-    .sec-rule::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--bdr2));}
-
-    /* FEATURED */
-    .featured{display:grid;grid-template-columns:1.1fr 1fr;margin-bottom:40px;border:1px solid var(--bdr2);background:var(--bg2);cursor:pointer;transition:box-shadow .25s,border-color .25s;overflow:hidden;}
-    .featured:hover{box-shadow:var(--shadow);border-color:var(--gold);}
-    .feat-img{min-height:280px;background:var(--bg3);display:flex;align-items:center;justify-content:center;overflow:hidden;border-right:1px solid var(--bdr2);}
-    .feat-img img{width:100%;height:100%;object-fit:cover;opacity:.85;}
-    .no-img-big{text-align:center;}
-    .no-img-big .bh{font-family:'Nanum Myeongjo',serif;font-size:5rem;color:var(--gold);opacity:.22;display:block;line-height:1;}
-    .no-img-big .bt{font-size:11px;color:var(--muted);letter-spacing:.2em;margin-top:10px;}
-    .feat-body{padding:36px 30px;display:flex;flex-direction:column;justify-content:center;}
-    .cat-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);border:1px solid var(--gold);padding:3px 10px;margin-bottom:14px;width:fit-content;opacity:.85;}
-    .feat-body h3{font-family:'Nanum Myeongjo',serif;font-size:clamp(1.35rem,3vw,1.8rem);font-weight:700;line-height:1.4;margin-bottom:14px;color:var(--ink);}
-    .excerpt{font-size:.87rem;color:var(--muted);line-height:1.85;margin-bottom:18px;}
-    .pmeta{font-size:11px;color:var(--muted);letter-spacing:.05em;margin-bottom:12px;}
-    .tags{display:flex;gap:6px;flex-wrap:wrap;}
-    .tag{font-size:10px;color:var(--muted);border:1px solid var(--border);padding:3px 9px;letter-spacing:.05em;transition:all .18s;cursor:default;}
-    .tag:hover{color:var(--gold);border-color:var(--gold);}
-
-    /* GRID */
-    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px;}
-    .pcard{background:var(--bg2);border:1px solid var(--bdr2);cursor:pointer;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s,transform .2s;overflow:hidden;}
-    .pcard:hover{box-shadow:var(--shadow);border-color:var(--gold);transform:translateY(-3px);}
-    .card-img{height:150px;background:var(--bg3);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--bdr2);}
-    .card-img img{width:100%;height:100%;object-fit:cover;opacity:.8;}
-    .no-img-sm{font-family:'Nanum Myeongjo',serif;font-size:3rem;color:var(--gold);opacity:.18;}
-    .card-body{padding:18px 16px;flex:1;display:flex;flex-direction:column;}
-    .card-body h3{font-family:'Nanum Myeongjo',serif;font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.45;color:var(--ink);}
-    .card-foot{padding:10px 16px 14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
-
-    /* EMPTY */
-    .empty{text-align:center;padding:100px 20px;color:var(--muted);}
-    .empty .eh{font-family:'Nanum Myeongjo',serif;font-size:4rem;color:var(--gold);opacity:.2;margin-bottom:18px;}
-    .empty p{font-size:.9rem;line-height:1.8;}
-
-    /* WRITE */
-    .write-wrap{max-width:720px;margin:0 auto;}
-    .write-hdr{text-align:center;margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--bdr2);}
-    .write-hdr .wh{font-family:'Nanum Myeongjo',serif;font-size:2.5rem;color:var(--gold);opacity:.4;display:block;margin-bottom:8px;}
-    .write-hdr h2{font-family:'Nanum Myeongjo',serif;font-size:1.5rem;color:var(--gold2);font-weight:700;letter-spacing:.1em;}
-    .fg{margin-bottom:22px;}
-    .fg label{display:block;font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
-    .fg input,.fg select,.fg textarea{width:100%;padding:13px 16px;background:var(--bg3);border:1px solid var(--bdr2);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:.93rem;outline:none;transition:border-color .2s;}
-    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
-    .fg input::placeholder,.fg textarea::placeholder{color:var(--muted);}
-    .fg select option{background:var(--bg3);}
-    .fg textarea{resize:vertical;min-height:240px;line-height:1.8;}
-    .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    .img-lbl{display:flex;align-items:center;justify-content:center;gap:10px;border:1px dashed var(--bdr2);padding:30px;cursor:pointer;color:var(--muted);font-size:.88rem;transition:border-color .2s,color .2s;background:var(--bg3);}
-    .img-lbl:hover{border-color:var(--gold);color:var(--gold);}
-    #imgFile{display:none;}
-    #imgPreview{margin-top:10px;max-height:200px;max-width:100%;display:none;border:1px solid var(--bdr2);}
-    .btn-post{width:100%;padding:15px;background:linear-gradient(135deg,var(--red),var(--red2));color:#f5efe3;border:none;font-family:'Nanum Myeongjo',serif;font-size:1.05rem;font-weight:700;letter-spacing:.15em;cursor:pointer;margin-top:10px;transition:opacity .2s,transform .2s;box-shadow:0 4px 20px rgba(139,32,32,.4);}
-    .btn-post:hover{opacity:.88;transform:translateY(-1px);}
-
-    /* DETAIL */
-    .detail-wrap{max-width:740px;margin:0 auto;}
-    .back-btn{background:none;border:1px solid var(--bdr2);color:var(--muted);font-family:'Noto Sans KR',sans-serif;font-size:11px;letter-spacing:.1em;padding:8px 16px;cursor:pointer;margin-bottom:30px;display:inline-flex;align-items:center;gap:6px;transition:all .18s;}
-    .back-btn:hover{color:var(--gold);border-color:var(--gold);}
-    .detail-title{font-family:'Nanum Myeongjo',serif;font-size:clamp(1.6rem,4.5vw,2.6rem);font-weight:800;line-height:1.3;margin-bottom:18px;color:var(--ink);}
-    .detail-meta{font-size:12px;color:var(--muted);padding:14px 0;border-top:1px solid var(--bdr2);border-bottom:1px solid var(--bdr2);margin-bottom:30px;display:flex;gap:18px;flex-wrap:wrap;}
-    .detail-img{width:100%;max-height:420px;object-fit:cover;margin-bottom:30px;border:1px solid var(--bdr2);opacity:.88;}
-    .detail-body{font-family:'Noto Serif KR',serif;font-size:1rem;line-height:2;color:#d4c9b4;white-space:pre-wrap;margin-bottom:30px;border-left:2px solid var(--bdr2);padding-left:20px;}
-    .detail-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:40px;}
-    .del-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:inherit;font-size:11px;letter-spacing:.08em;padding:8px 16px;cursor:pointer;transition:all .18s;}
-    .del-btn:hover{border-color:var(--red2);color:var(--red2);}
-
-    /* COMMENTS */
-    .cmt-section{margin-top:44px;padding-top:32px;border-top:1px solid var(--bdr2);}
-    .cmt-title{font-family:'Nanum Myeongjo',serif;font-size:1.15rem;font-weight:700;color:var(--gold2);margin-bottom:24px;letter-spacing:.08em;}
-    .cmt-form{margin-bottom:28px;}
-    .cmt-row{display:grid;grid-template-columns:160px 1fr;gap:10px;margin-bottom:10px;}
-    .cmt-form input,.cmt-form textarea{padding:10px 13px;background:var(--bg3);border:1px solid var(--bdr2);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:.87rem;outline:none;width:100%;transition:border-color .18s;}
-    .cmt-form input:focus,.cmt-form textarea:focus{border-color:var(--gold);}
-    .cmt-form input::placeholder,.cmt-form textarea::placeholder{color:var(--muted);}
-    .cmt-form textarea{min-height:80px;resize:none;}
-    .btn-cmt{background:var(--bg3);border:1px solid var(--gold);color:var(--gold);font-family:'Nanum Myeongjo',serif;font-size:.9rem;letter-spacing:.1em;padding:10px 24px;cursor:pointer;transition:all .18s;}
-    .btn-cmt:hover{background:var(--gold);color:var(--bg);}
-    .cmt-list{display:flex;flex-direction:column;gap:12px;}
-    .cmt-item{background:var(--bg3);border:1px solid var(--bdr2);padding:14px 18px;}
-    .cmt-hdr{display:flex;justify-content:space-between;margin-bottom:7px;align-items:center;}
-    .cmt-author{font-weight:700;font-size:.88rem;color:var(--gold2);}
-    .cmt-date{font-size:11px;color:var(--muted);}
-    .cmt-text{font-size:.88rem;line-height:1.7;color:#b8aa96;}
-    .no-cmt{font-size:.88rem;color:var(--muted);text-align:center;padding:28px;letter-spacing:.1em;}
-    .btn-del-cmt{background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;padding:0;transition:color .15s;}
-    .btn-del-cmt:hover{color:var(--red2);}
-
-    /* CATEGORY */
-    .cat-hdr{text-align:center;margin-bottom:36px;}
-    .cat-hdr .ch{font-family:'Nanum Myeongjo',serif;font-size:3rem;color:var(--gold);opacity:.2;display:block;margin-bottom:6px;}
-    .catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:40px;}
-    .catcard{background:var(--bg2);border:1px solid var(--bdr2);padding:22px 16px;cursor:pointer;text-align:center;transition:all .2s;}
-    .catcard:hover{border-color:var(--gold);}
-    .catcard.active{border-color:var(--gold);background:rgba(201,168,76,.08);}
-    .catcard.active .cat-nm{color:var(--gold2);}
-    .catcard.active .cat-hj{opacity:.8;}
-    .cat-hj{font-family:'Nanum Myeongjo',serif;font-size:2rem;color:var(--gold);opacity:.5;display:block;margin-bottom:8px;}
-    .cat-nm{font-weight:700;font-size:.92rem;color:var(--ink);margin-bottom:4px;}
-    .cat-cnt{font-size:11px;color:var(--muted);letter-spacing:.08em;}
-    .cat-filtered-title{font-family:'Nanum Myeongjo',serif;font-size:1.1rem;color:var(--gold2);margin-bottom:20px;letter-spacing:.08em;}
-
-    /* TOAST */
-    #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--bg3);color:var(--gold2);border:1px solid var(--gold);padding:12px 28px;font-size:.88rem;letter-spacing:.06em;opacity:0;pointer-events:none;transition:all .3s;z-index:9999;white-space:nowrap;}
-    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-    @media(max-width:660px){
-      .featured{grid-template-columns:1fr;}
-      .feat-img{min-height:200px;border-right:none;border-bottom:1px solid var(--bdr2);}
-      .frow{grid-template-columns:1fr;}
-      .cmt-row{grid-template-columns:1fr;}
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      background:var(--bg); color:var(--ink);
+      font-family:'Noto Sans KR',sans-serif; min-height:100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 0%,rgba(184,134,11,0.06) 0%,transparent 60%),
+        radial-gradient(ellipse at 80% 100%,rgba(155,35,53,0.05) 0%,transparent 60%);
+    }
+    .deco-top { height:5px; background:linear-gradient(90deg,var(--gold) 0%,var(--red) 40%,var(--gold) 100%); }
+    header { background:var(--ink); position:relative; overflow:hidden; }
+    header::before {
+      content:'喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂';
+      position:absolute; top:10px; left:0; right:0;
+      font-family:'Noto Serif KR',serif; font-size:11px;
+      color:rgba(255,255,255,0.05); letter-spacing:0.6em; text-align:center; pointer-events:none;
+    }
+    header::after {
+      content:'喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂 喜 樂';
+      position:absolute; bottom:10px; left:0; right:0;
+      font-family:'Noto Serif KR',serif; font-size:11px;
+      color:rgba(255,255,255,0.05); letter-spacing:0.6em; text-align:center; pointer-events:none;
+    }
+    .header-band {
+      border-bottom:1px solid rgba(255,255,255,0.1); padding:10px 32px;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:11px; color:rgba(250,247,242,0.45); letter-spacing:0.1em;
+    }
+    .masthead { text-align:center; padding:36px 24px 30px; position:relative; }
+    .masthead::before,.masthead::after {
+      content:''; position:absolute; top:20%; bottom:20%; width:1px;
+      background:linear-gradient(to bottom,transparent,rgba(184,134,11,0.4),transparent);
+    }
+    .masthead::before { left:12%; } .masthead::after { right:12%; }
+    .masthead-ko { font-family:'Noto Serif KR',serif; font-size:clamp(2.6rem,7vw,5rem); font-weight:900; color:var(--paper); letter-spacing:0.08em; line-height:1; display:block; }
+    .masthead-ko .no { color:var(--gold2); font-family:'Noto Serif JP',serif; font-weight:400; }
+    .masthead-ko .red { color:var(--red); }
+    .masthead-sub { font-size:11px; color:rgba(250,247,242,0.4); letter-spacing:0.25em; text-transform:uppercase; margin-top:10px; font-weight:300; }
+    .masthead-desc { font-family:'Noto Serif KR',serif; font-size:12px; color:rgba(250,247,242,0.35); margin-top:6px; letter-spacing:0.12em; }
+    nav { background:var(--paper); border-bottom:2px solid var(--border); display:flex; justify-content:center; flex-wrap:wrap; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(28,18,8,0.07); }
+    nav button { background:none; border:none; padding:13px 22px; font-family:'Noto Serif KR',serif; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; transition:all 0.2s; letter-spacing:0.04em; white-space:nowrap; }
+    nav button:hover { color:var(--ink); border-bottom-color:var(--gold); }
+    nav button.active { color:var(--red); border-bottom-color:var(--red); }
+    .nav-write-btn { background:var(--red)!important; color:var(--paper)!important; border-bottom:none!important; margin-left:6px; }
+    .nav-write-btn:hover { background:#7d1c2a!important; }
+    main { max-width:1080px; margin:0 auto; padding:40px 20px 80px; }
+    .view { display:none; } .view.active { display:block; }
+    .section-rule { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
+    .section-rule h2 { font-family:'Noto Serif KR',serif; font-size:0.85rem; font-weight:700; white-space:nowrap; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; }
+    .section-rule::before,.section-rule::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+    .rule-diamond::before { content:'◆'; color:var(--gold); font-size:9px; flex:none; }
+    .rule-diamond::after  { content:'◆'; color:var(--gold); font-size:9px; flex:none; }
+    .featured-post { display:grid; grid-template-columns:55% 45%; border:1px solid var(--border); margin-bottom:40px; cursor:pointer; transition:box-shadow 0.22s; background:var(--paper); box-shadow:0 2px 8px rgba(28,18,8,0.06); }
+    .featured-post:hover { box-shadow:var(--shadow); }
+    .featured-img { min-height:280px; background:var(--bg); display:flex; align-items:center; justify-content:center; overflow:hidden; border-right:1px solid var(--border); }
+    .featured-img img { width:100%; height:100%; object-fit:cover; }
+    .no-img-wrap { display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .no-img-kanji { font-family:'Noto Serif KR',serif; font-size:5rem; color:var(--border); line-height:1; }
+    .no-img-sub { font-size:11px; color:var(--border); letter-spacing:0.12em; }
+    .featured-body { padding:36px 32px; display:flex; flex-direction:column; justify-content:center; }
+    .post-cat-badge { display:inline-block; background:var(--red); color:var(--paper); font-size:10px; font-weight:700; letter-spacing:0.14em; padding:3px 10px; margin-bottom:14px; font-family:'Noto Serif KR',serif; }
+    .featured-body h3 { font-family:'Noto Serif KR',serif; font-size:1.7rem; font-weight:900; line-height:1.35; margin-bottom:14px; color:var(--ink); }
+    .post-excerpt { font-size:0.88rem; color:var(--muted); line-height:1.85; margin-bottom:18px; }
+    .post-meta { font-size:11px; color:var(--muted); letter-spacing:0.05em; font-weight:300; }
+    .post-tags { margin-top:12px; display:flex; gap:6px; flex-wrap:wrap; }
+    .tag { background:none; border:1px solid var(--border); color:var(--muted); font-size:10px; padding:3px 9px; font-weight:500; letter-spacing:0.06em; font-family:'Noto Serif KR',serif; }
+    .post-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:22px; }
+    .post-card { background:var(--paper); border:1px solid var(--border); cursor:pointer; display:flex; flex-direction:column; transition:box-shadow 0.2s,transform 0.2s; }
+    .post-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+    .card-img { height:155px; background:var(--bg); display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid var(--border2); }
+    .card-img img { width:100%; height:100%; object-fit:cover; }
+    .card-img .no-img-kanji { font-size:3rem; }
+    .card-body { padding:18px 16px; flex:1; display:flex; flex-direction:column; }
+    .card-body h3 { font-family:'Noto Serif KR',serif; font-size:1rem; font-weight:700; line-height:1.45; margin-bottom:8px; color:var(--ink); }
+    .card-body .post-excerpt { font-size:0.81rem; flex:1; }
+    .card-footer { padding:10px 16px 13px; border-top:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center; }
+    .empty-state { text-align:center; padding:80px 20px; color:var(--muted); }
+    .empty-kanji { font-family:'Noto Serif KR',serif; font-size:4rem; color:var(--border); margin-bottom:12px; }
+    .empty-state p { font-size:0.9rem; line-height:1.8; }
+    .loading-state { text-align:center; padding:60px 20px; color:var(--muted); }
+    .loading-spinner { width:36px; height:36px; border:3px solid var(--border2); border-top-color:var(--red); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .write-wrap { max-width:720px; margin:0 auto; }
+    .write-wrap .page-title { font-family:'Noto Serif KR',serif; font-size:1.5rem; font-weight:900; margin-bottom:28px; padding-bottom:16px; border-bottom:2px solid var(--ink); color:var(--ink); display:flex; align-items:center; gap:10px; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:7px; font-family:'Noto Serif KR',serif; }
+    .form-group input,.form-group select,.form-group textarea { width:100%; padding:11px 14px; border:1px solid var(--border); background:var(--paper); font-family:'Noto Sans KR',sans-serif; font-size:0.93rem; color:var(--ink); outline:none; transition:border-color 0.18s,box-shadow 0.18s; }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(184,134,11,0.08); }
+    .form-group textarea { resize:vertical; min-height:230px; line-height:1.8; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .img-upload-label { display:flex; align-items:center; justify-content:center; gap:10px; border:1.5px dashed var(--border); padding:26px; cursor:pointer; color:var(--muted); font-size:0.87rem; transition:border-color 0.18s,color 0.18s; background:var(--paper); }
+    .img-upload-label:hover { border-color:var(--gold); color:var(--gold); }
+    #imgFile { display:none; }
+    #imgPreview { margin-top:10px; max-height:200px; max-width:100%; display:none; border:1px solid var(--border); }
+    .btn-submit { width:100%; padding:15px; background:var(--red); color:var(--paper); border:none; font-family:'Noto Serif KR',serif; font-size:1rem; font-weight:700; letter-spacing:0.12em; cursor:pointer; transition:background 0.18s; margin-top:8px; }
+    .btn-submit:hover { background:#7d1c2a; }
+    .btn-submit:disabled { background:var(--muted); cursor:not-allowed; }
+    .detail-wrap { max-width:740px; margin:0 auto; }
+    .detail-back { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); cursor:pointer; margin-bottom:26px; background:none; border:none; font-family:'Noto Serif KR',serif; transition:color 0.16s; }
+    .detail-back:hover { color:var(--red); }
+    .detail-cat { margin-bottom:10px; }
+    .detail-title { font-family:'Noto Serif KR',serif; font-size:clamp(1.7rem,4.5vw,2.5rem); font-weight:900; line-height:1.28; margin-bottom:16px; color:var(--ink); }
+    .detail-meta { font-size:12px; color:var(--muted); padding:13px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:30px; display:flex; gap:18px; flex-wrap:wrap; }
+    .detail-img { width:100%; max-height:420px; object-fit:cover; margin-bottom:30px; border:1px solid var(--border); }
+    .detail-body { font-family:'Noto Serif KR',serif; font-size:1.01rem; line-height:2.1; color:var(--ink2); white-space:pre-wrap; margin-bottom:34px; border-left:3px solid var(--border2); padding-left:20px; }
+    .detail-tags { margin-bottom:30px; }
+    .btn-delete { background:none; border:1px solid var(--border); padding:8px 18px; font-size:11px; font-weight:700; letter-spacing:0.08em; color:var(--muted); cursor:pointer; font-family:'Noto Serif KR',serif; transition:all 0.16s; }
+    .btn-delete:hover { border-color:var(--red); color:var(--red); }
+    .comments-section { margin-top:48px; border-top:2px solid var(--ink); padding-top:28px; }
+    .comments-title { font-family:'Noto Serif KR',serif; font-size:1rem; font-weight:700; letter-spacing:0.1em; margin-bottom:22px; color:var(--ink); }
+    .comment-form { margin-bottom:28px; }
+    .comment-form-row { display:grid; grid-template-columns:150px 1fr; gap:10px; margin-bottom:10px; }
+    .comment-form input,.comment-form textarea { padding:10px 12px; border:1px solid var(--border); background:var(--paper); font-family:'Noto Sans KR',sans-serif; font-size:0.87rem; color:var(--ink); outline:none; width:100%; transition:border-color 0.16s; }
+    .comment-form input:focus,.comment-form textarea:focus { border-color:var(--gold); }
+    .comment-form textarea { min-height:80px; resize:none; }
+    .btn-comment { background:var(--ink); color:var(--paper); border:none; padding:10px 24px; font-family:'Noto Serif KR',serif; font-size:0.87rem; font-weight:700; cursor:pointer; letter-spacing:0.08em; transition:background 0.16s; }
+    .btn-comment:hover { background:var(--red); }
+    .comment-list { display:flex; flex-direction:column; gap:12px; }
+    .comment-item { background:var(--paper); border:1px solid var(--border2); border-left:3px solid var(--gold); padding:14px 16px; }
+    .comment-header { display:flex; justify-content:space-between; margin-bottom:7px; align-items:center; }
+    .comment-author { font-weight:700; font-size:0.87rem; color:var(--ink); font-family:'Noto Serif KR',serif; }
+    .comment-date { font-size:11px; color:var(--muted); }
+    .comment-text { font-size:0.87rem; line-height:1.7; color:var(--ink2); }
+    .btn-del-comment { background:none; border:none; cursor:pointer; color:var(--muted); font-size:11px; padding:0; transition:color 0.14s; }
+    .btn-del-comment:hover { color:var(--red); }
+    .no-comments { font-size:0.87rem; color:var(--muted); text-align:center; padding:24px; font-family:'Noto Serif KR',serif; }
+    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:36px; }
+    .cat-card { background:var(--paper); border:1px solid var(--border); padding:22px 18px; cursor:pointer; text-align:center; transition:box-shadow 0.18s,border-color 0.18s; }
+    .cat-card:hover { box-shadow:var(--shadow); border-color:var(--gold); }
+    .cat-card.active { border-color:var(--red); background:var(--red); }
+    .cat-card.active .cat-name,.cat-card.active .cat-count { color:var(--paper); }
+    .cat-name { font-family:'Noto Serif KR',serif; font-weight:700; font-size:1rem; margin-bottom:6px; color:var(--ink); }
+    .cat-count { font-size:11px; color:var(--muted); }
+    .cat-filtered-title { font-family:'Noto Serif KR',serif; font-size:1rem; font-weight:700; margin-bottom:20px; color:var(--ink); padding-bottom:10px; border-bottom:1px solid var(--border); }
+    #toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(16px); background:var(--ink); color:var(--paper); padding:12px 30px; font-size:0.87rem; font-family:'Noto Serif KR',serif; letter-spacing:0.06em; opacity:0; pointer-events:none; transition:all 0.28s; z-index:999; border-bottom:3px solid var(--gold); }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .divider { text-align:center; color:var(--border); font-size:12px; letter-spacing:0.4em; margin:30px 0 8px; }
+    @media (max-width:640px) {
+      .featured-post { grid-template-columns:1fr; }
+      .featured-img { border-right:none; border-bottom:1px solid var(--border); min-height:180px; }
+      .featured-body { padding:22px 18px; }
+      .form-row { grid-template-columns:1fr; }
+      .comment-form-row { grid-template-columns:1fr; }
+      .masthead::before,.masthead::after { display:none; }
     }
   </style>
 </head>
 <body>
-
+<div class="deco-top"></div>
 <header>
-  <div class="hdr-deco"></div>
-  <div class="hdr-top">
-    <span class="hanja-sm" id="hdrDate"></span>
-    <span style="letter-spacing:.12em;font-size:10px;">기쁨과 슬픔, 그 사이의 이야기</span>
-    <span class="hanja-sm">喜怒哀樂</span>
+  <div class="header-band">
+    <span id="headerDate"></span>
+    <span style="letter-spacing:0.18em;">희(喜)の애락(樂)</span>
+    <span>일상의 기록</span>
   </div>
   <div class="masthead">
-    <div class="title-main">
-      <div class="title-ko">
-        <span class="hj">喜</span>희<span class="no">の</span>애락<span class="hj red">樂</span>
-      </div>
-      <div class="title-sub">희로애락 뉴스 · 일상을 기록하다</div>
-      <div class="brush"></div>
-    </div>
+    <span class="masthead-ko"><span class="red">희(喜)</span><span class="no">の</span><span>애락(樂)</span></span>
+    <div class="masthead-sub">Hee · No · Ae-Rak</div>
+    <div class="masthead-desc">기쁨과 슬픔, 일상의 모든 이야기</div>
   </div>
 </header>
-
 <nav>
   <button class="active" onclick="showView('list')">전체 기사</button>
-  <button onclick="showView('category')">분류</button>
-  <button class="nav-write" onclick="showView('write')">✒ 기사 쓰기</button>
+  <button onclick="showView('category')">분류 · 태그</button>
+  <button class="nav-write-btn" onclick="showView('write')">✒ 새 글 쓰기</button>
 </nav>
-
 <main>
-
-  <!-- LIST -->
   <div id="view-list" class="view active">
-    <div class="sec-rule"><h2>최신 기사</h2></div>
-    <div id="featured-area"></div>
-    <div id="pgrid" class="pgrid"></div>
-    <div id="empty" class="empty" style="display:none;">
-      <div class="eh">無</div>
-      <p>아직 작성된 기사가 없습니다.<br><br>
-        상단의 <strong style="color:var(--gold)">✒ 기사 쓰기</strong>를 눌러<br>
-        첫 번째 이야기를 기록해 보세요.</p>
-    </div>
+    <div class="section-rule rule-diamond"><h2>오늘의 이야기</h2></div>
+    <div id="list-content"><div class="loading-state"><div class="loading-spinner"></div><p>기사를 불러오는 중...</p></div></div>
   </div>
-
-  <!-- WRITE -->
   <div id="view-write" class="view">
     <div class="write-wrap">
-      <div class="write-hdr">
-        <span class="wh">記</span>
-        <h2>새 기사 쓰기</h2>
-      </div>
-      <div class="fg"><label>제목 *</label><input id="f-title" type="text" placeholder="기사 제목을 입력하세요"/></div>
-      <div class="frow">
-        <div class="fg">
-          <label>카테고리 *</label>
-          <select id="f-category">
-            <option value="">선택하세요</option>
-            <option>喜 — 기쁨</option>
-            <option>怒 — 분노</option>
-            <option>哀 — 슬픔</option>
-            <option>樂 — 즐거움</option>
-            <option>日常 — 일상</option>
-            <option>旅行 — 여행</option>
-            <option>食 — 음식</option>
-            <option>기타</option>
-          </select>
+      <div class="page-title">✒ 새 이야기 기록하기</div>
+      <div class="form-group"><label>제목 *</label><input id="f-title" type="text" placeholder="오늘의 이야기 제목"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>분류 *</label>
+          <select id="f-category"><option value="">선택하세요</option><option>일상</option><option>학교</option><option>여행</option><option>음식</option><option>감상</option><option>문화</option><option>기타</option></select>
         </div>
-        <div class="fg"><label>태그 (쉼표로 구분)</label><input id="f-tags" type="text" placeholder="예: 봄날, 산책, 단상"/></div>
+        <div class="form-group"><label>태그 (쉼표로 구분)</label><input id="f-tags" type="text" placeholder="예: 봄, 일기, 대학교"/></div>
       </div>
-      <div class="fg"><label>내용 *</label><textarea id="f-content" placeholder="오늘의 이야기를 자유롭게 써 내려가세요..."></textarea></div>
-      <div class="fg">
-        <label>사진 첨부</label>
-        <label class="img-lbl" for="imgFile">⛩ 사진을 클릭하여 첨부</label>
+      <div class="form-group"><label>내용 *</label><textarea id="f-content" placeholder="오늘의 기쁨과 애락을 자유롭게 기록하세요..."></textarea></div>
+      <div class="form-group">
+        <label>사진 첨부 (500KB 이하)</label>
+        <label class="img-upload-label" for="imgFile">🖼 클릭하여 사진 첨부하기</label>
         <input type="file" id="imgFile" accept="image/*" onchange="previewImg(event)"/>
         <img id="imgPreview" alt="미리보기"/>
       </div>
-      <button class="btn-post" onclick="submitPost()">기사 게시하기 — 發</button>
+      <button class="btn-submit" id="submitBtn" onclick="submitPost()">— 기사 게시하기 —</button>
     </div>
   </div>
-
-  <!-- DETAIL -->
   <div id="view-detail" class="view">
     <div class="detail-wrap">
-      <button class="back-btn" onclick="goBack()">← 목록으로</button>
-      <div class="cat-badge" id="d-cat" style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);border:1px solid var(--gold);padding:3px 10px;margin-bottom:16px;opacity:.85;"></div>
+      <button class="detail-back" onclick="showView('list')">← 목록으로</button>
+      <div class="detail-cat" id="d-category"></div>
       <h1 class="detail-title" id="d-title"></h1>
-      <div class="detail-meta"><span id="d-date"></span><span>편집부 · 희의애락</span></div>
-      <img class="detail-img" id="d-img" style="display:none;" alt=""/>
+      <div class="detail-meta"><span id="d-date"></span><span>희(喜)の애락(樂) 기자</span></div>
+      <img class="detail-img" id="d-img" style="display:none;" alt="기사 이미지"/>
       <div class="detail-body" id="d-body"></div>
-      <div class="detail-foot">
-        <div class="tags" id="d-tags"></div>
-        <button class="del-btn" onclick="deletePost()">삭제 — 削</button>
-      </div>
-      <div class="cmt-section">
-        <div class="cmt-title" id="cmt-title">독자 반응 — 댓글</div>
-        <div class="cmt-form">
-          <div class="cmt-row">
-            <input id="c-author" type="text" placeholder="이름"/>
-            <input id="c-pw" type="password" placeholder="비밀번호 (삭제용)"/>
+      <div class="detail-tags" id="d-tags"></div>
+      <button class="btn-delete" onclick="deleteCurrentPost()">삭제</button>
+      <div class="comments-section">
+        <div class="comments-title" id="comment-count-title">💬 댓글</div>
+        <div class="comment-form">
+          <div class="comment-form-row">
+            <input id="c-author" type="text" placeholder="이름" maxlength="20"/>
+            <input id="c-password" type="password" placeholder="비밀번호 (선택)" maxlength="20"/>
           </div>
-          <textarea id="c-text" placeholder="이 기사에 대한 생각을 남겨주세요..."></textarea>
-          <br><button class="btn-cmt" onclick="submitComment()">댓글 남기기</button>
+          <textarea id="c-text" placeholder="따뜻한 한마디를 남겨주세요..."></textarea>
+          <br><button class="btn-comment" onclick="submitComment()">댓글 등록</button>
         </div>
-        <div class="cmt-list" id="cmt-list"></div>
+        <div class="comment-list" id="comment-list"></div>
       </div>
     </div>
   </div>
-
-  <!-- CATEGORY -->
   <div id="view-category" class="view">
-    <div class="cat-hdr"><span class="ch">分類</span></div>
-    <div class="sec-rule"><h2>카테고리별 기사</h2></div>
-    <div class="catgrid" id="catgrid"></div>
+    <div class="section-rule rule-diamond"><h2>분류 · 카테고리</h2></div>
+    <div class="cat-grid" id="cat-grid"></div>
     <div id="cat-filtered"></div>
   </div>
-
 </main>
-
 <div id="toast"></div>
-
 <script>
-  const KEY = 'heeui_posts';
-  let curId = null, prevView = 'list', activeCat = null;
-  const HJ = {'喜 — 기쁨':'喜','怒 — 분노':'怒','哀 — 슬픔':'哀','樂 — 즐거움':'樂','日常 — 일상':'日','旅行 — 여행':'旅','食 — 음식':'食','기타':'記'};
+  const MASTER_KEY = '$2a$10$jKRUIx.RtX6NcBltPsOxq.U5RH9efVmPljDZTpnxeEHKh6UZDKUf2';
+  let BIN_ID = localStorage.getItem('hino_bin_id') || null;
+  let posts = [];
+  let currentPostId = null;
+  let activeCat = null;
+  let imgDataUrl = null;
 
-  const getPosts = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
-  const savePosts = p => localStorage.setItem(KEY, JSON.stringify(p));
-  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-
-  function showView(name, from) {
-    if (from) prevView = from;
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById('view-' + name).classList.add('active');
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-    if (name === 'list')     { document.querySelectorAll('nav button')[0].classList.add('active'); renderList(); }
-    if (name === 'category') { document.querySelectorAll('nav button')[1].classList.add('active'); renderCats(); }
-    if (name === 'write')    { document.querySelectorAll('nav button')[2].classList.add('active'); }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  function goBack() { showView(prevView || 'list'); }
-
-  // Date header
-  (() => {
-    const d = new Date(), days = ['日','月','火','水','木','金','土'];
-    document.getElementById('hdrDate').textContent =
-      `${d.getFullYear()}年 ${d.getMonth()+1}月 ${d.getDate()}日 ${days[d.getDay()]}曜`;
+  // 날짜
+  (function(){
+    const d=new Date(), days=['일','월','화','수','목','금','토'];
+    document.getElementById('headerDate').textContent=`${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
   })();
 
-  // Image preview
-  let imgData = null;
-  function previewImg(e) {
-    const f = e.target.files[0]; if (!f) return;
-    const r = new FileReader();
-    r.onload = ev => { imgData = ev.target.result; const p = document.getElementById('imgPreview'); p.src = imgData; p.style.display = 'block'; };
-    r.readAsDataURL(f);
+  // JSONBin 초기화
+  async function initBin() {
+    if(BIN_ID){ await loadPosts(); return; }
+    try {
+      const res = await fetch('https://api.jsonbin.io/v3/b',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':MASTER_KEY,'X-Bin-Name':'hino-aerak','X-Bin-Private':'false'},
+        body:JSON.stringify({posts:[]})
+      });
+      const data = await res.json();
+      BIN_ID = data.metadata.id;
+      localStorage.setItem('hino_bin_id', BIN_ID);
+      posts=[];
+      renderList();
+    } catch(e){ showToast('연결 오류. 새로고침 해주세요.'); renderList(); }
   }
 
-  // Submit post
-  function submitPost() {
-    const title = document.getElementById('f-title').value.trim();
-    const cat   = document.getElementById('f-category').value;
-    const tags  = document.getElementById('f-tags').value.trim();
-    const body  = document.getElementById('f-content').value.trim();
-    if (!title) { toast('제목을 입력해주세요'); return; }
-    if (!cat)   { toast('카테고리를 선택해주세요'); return; }
-    if (!body)  { toast('내용을 입력해주세요'); return; }
-    const now = new Date();
-    const post = {
-      id: Date.now(), title, category: cat, content: body,
-      tags: tags ? tags.split(',').map(t=>t.trim()).filter(Boolean) : [],
-      image: imgData || null,
-      date: now.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}),
-      comments: []
-    };
-    const posts = getPosts(); posts.unshift(post); savePosts(posts);
-    ['f-title','f-tags','f-content'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f-category').value = '';
-    document.getElementById('imgPreview').style.display = 'none';
-    document.getElementById('imgFile').value = '';
-    imgData = null;
-    toast('기사가 게시되었습니다 — 發');
+  async function loadPosts() {
+    try {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`,{headers:{'X-Master-Key':MASTER_KEY}});
+      const data = await res.json();
+      posts = data.record.posts||[];
+      renderList();
+    } catch(e){ showToast('불러오기 실패.'); posts=[]; renderList(); }
+  }
+
+  async function savePosts() {
+    try {
+      await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{
+        method:'PUT',
+        headers:{'Content-Type':'application/json','X-Master-Key':MASTER_KEY},
+        body:JSON.stringify({posts})
+      });
+    } catch(e){ showToast('저장 오류가 발생했어요.'); }
+  }
+
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+name).classList.add('active');
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    if(name==='list'){document.querySelectorAll('nav button')[0].classList.add('active');renderList();}
+    if(name==='category'){document.querySelectorAll('nav button')[1].classList.add('active');renderCategories();}
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function previewImg(e) {
+    const file=e.target.files[0]; if(!file) return;
+    if(file.size>500*1024){showToast('사진은 500KB 이하로 올려주세요.');e.target.value='';return;}
+    const r=new FileReader();
+    r.onload=ev=>{imgDataUrl=ev.target.result;const p=document.getElementById('imgPreview');p.src=imgDataUrl;p.style.display='block';};
+    r.readAsDataURL(file);
+  }
+
+  async function submitPost() {
+    const title=document.getElementById('f-title').value.trim();
+    const cat=document.getElementById('f-category').value;
+    const tags=document.getElementById('f-tags').value.trim();
+    const body=document.getElementById('f-content').value.trim();
+    if(!title) return showToast('제목을 입력해주세요.');
+    if(!cat)   return showToast('분류를 선택해주세요.');
+    if(!body)  return showToast('내용을 입력해주세요.');
+    const btn=document.getElementById('submitBtn');
+    btn.disabled=true; btn.textContent='게시 중...';
+    const now=new Date();
+    posts.unshift({
+      id:Date.now(), title, category:cat,
+      tags:tags?tags.split(',').map(t=>t.trim()).filter(Boolean):[],
+      content:body, image:imgDataUrl||null,
+      date:now.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+      comments:[]
+    });
+    await savePosts();
+    ['f-title','f-tags','f-content'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('f-category').value='';
+    document.getElementById('imgPreview').style.display='none';
+    document.getElementById('imgFile').value='';
+    imgDataUrl=null;
+    btn.disabled=false; btn.textContent='— 기사 게시하기 —';
+    showToast('기사가 게시되었습니다 ✦');
     showView('list');
   }
 
-  // Render list
   function renderList() {
-    const posts = getPosts();
-    const fa = document.getElementById('featured-area');
-    const pg = document.getElementById('pgrid');
-    const em = document.getElementById('empty');
-    if (!posts.length) { fa.innerHTML=''; pg.innerHTML=''; em.style.display='block'; return; }
-    em.style.display = 'none';
-    const fp = posts[0];
-    fa.innerHTML = `<div class="featured" onclick="openPost(${fp.id},'list')">
-      <div class="feat-img">${fp.image
-        ? `<img src="${esc(fp.image)}" alt="${esc(fp.title)}"/>`
-        : `<div class="no-img-big"><span class="bh">${HJ[fp.category]||'記'}</span><span class="bt">희의 애락</span></div>`}</div>
-      <div class="feat-body">
-        <div class="cat-badge">${esc(fp.category)}</div>
+    const lc=document.getElementById('list-content');
+    if(!posts.length){
+      lc.innerHTML=`<div class="empty-state"><div class="empty-kanji">喜</div><p>아직 작성된 기사가 없어요.<br>오른쪽 위 <strong>✒ 새 글 쓰기</strong>로<br>첫 번째 이야기를 올려보세요.</p></div>`;
+      return;
+    }
+    const fp=posts[0];
+    let html=`<div class="featured-post" onclick="openPost(${fp.id})">
+      <div class="featured-img">${fp.image?`<img src="${fp.image}" alt="${fp.title}"/>`:`<div class="no-img-wrap"><div class="no-img-kanji">喜</div><div class="no-img-sub">이미지 없음</div></div>`}</div>
+      <div class="featured-body">
+        <span class="post-cat-badge">${fp.category}</span>
         <h3>${esc(fp.title)}</h3>
-        <p class="excerpt">${esc(fp.content.slice(0,120))}${fp.content.length>120?'…':''}</p>
-        <div class="pmeta">📅 ${fp.date} &nbsp;·&nbsp; 💬 ${fp.comments.length}개</div>
-        <div class="tags">${fp.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>
+        <p class="post-excerpt">${esc(fp.content.slice(0,130))}${fp.content.length>130?'…':''}</p>
+        <div class="post-meta">📅 ${fp.date} &nbsp;·&nbsp; 💬 ${fp.comments.length}개</div>
+        <div class="post-tags">${fp.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>
       </div></div>`;
-    pg.innerHTML = posts.slice(1).map(p => `
-      <div class="pcard" onclick="openPost(${p.id},'list')">
-        <div class="card-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.title)}"/>`:`<span class="no-img-sm">${HJ[p.category]||'記'}</span>`}</div>
-        <div class="card-body">
-          <div class="cat-badge" style="margin-bottom:10px;">${esc(p.category)}</div>
-          <h3>${esc(p.title)}</h3>
-          <p class="excerpt" style="flex:1;">${esc(p.content.slice(0,80))}${p.content.length>80?'…':''}</p>
-          <div class="tags" style="margin-top:10px;">${p.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>
-        </div>
-        <div class="card-foot"><span>${p.date}</span><span>💬 ${p.comments.length}</span></div>
-      </div>`).join('');
+    if(posts.length>1){
+      html+=`<div class="divider">— 더 보기 —</div><div class="post-grid" style="margin-top:22px;">
+        ${posts.slice(1).map(p=>`<div class="post-card" onclick="openPost(${p.id})">
+          <div class="card-img">${p.image?`<img src="${p.image}" alt="${p.title}"/>`:`<div class="no-img-kanji">樂</div>`}</div>
+          <div class="card-body">
+            <span class="post-cat-badge" style="font-size:9px;padding:2px 8px;margin-bottom:8px;">${p.category}</span>
+            <h3>${esc(p.title)}</h3>
+            <p class="post-excerpt">${esc(p.content.slice(0,75))}${p.content.length>75?'…':''}</p>
+            <div class="post-tags" style="margin-top:8px;">${p.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>
+          </div>
+          <div class="card-footer"><span class="post-meta">📅 ${p.date}</span><span class="post-meta">💬 ${p.comments.length}</span></div>
+        </div>`).join('')}</div>`;
+    }
+    lc.innerHTML=html;
   }
 
-  // Open post
-  function openPost(id, from) {
-    const post = getPosts().find(p => p.id === id); if (!post) return;
-    curId = id; prevView = from || 'list';
-    document.getElementById('d-cat').textContent = post.category;
-    document.getElementById('d-title').textContent = post.title;
-    document.getElementById('d-date').textContent = '📅 ' + post.date;
-    document.getElementById('d-body').textContent = post.content;
-    const img = document.getElementById('d-img');
-    if (post.image) { img.src = post.image; img.style.display = 'block'; } else { img.style.display = 'none'; }
-    document.getElementById('d-tags').innerHTML = post.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('');
-    renderCmts(post);
+  function openPost(id) {
+    const post=posts.find(p=>p.id===id); if(!post) return;
+    currentPostId=id;
+    document.getElementById('d-category').innerHTML=`<span class="post-cat-badge">${post.category}</span>`;
+    document.getElementById('d-title').textContent=post.title;
+    document.getElementById('d-date').textContent='📅 '+post.date;
+    document.getElementById('d-body').textContent=post.content;
+    const img=document.getElementById('d-img');
+    if(post.image){img.src=post.image;img.style.display='block';}else{img.style.display='none';}
+    document.getElementById('d-tags').innerHTML=`<div class="post-tags">${post.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>`;
+    renderComments(post);
     showView('detail');
   }
 
-  // Delete post
-  function deletePost() {
-    if (!confirm('이 기사를 삭제하시겠습니까?')) return;
-    savePosts(getPosts().filter(p => p.id !== curId));
-    toast('기사가 삭제되었습니다'); showView('list');
+  async function deleteCurrentPost() {
+    if(!confirm('이 기사를 삭제하시겠어요?')) return;
+    posts=posts.filter(p=>p.id!==currentPostId);
+    await savePosts();
+    showToast('삭제되었습니다.');
+    showView('list');
   }
 
-  // Comments
-  function renderCmts(post) {
-    document.getElementById('cmt-title').textContent = `독자 반응 — 댓글 ${post.comments.length}개`;
-    const list = document.getElementById('cmt-list');
-    if (!post.comments.length) { list.innerHTML = '<div class="no-cmt">— 아직 댓글이 없습니다 —</div>'; return; }
-    list.innerHTML = post.comments.map((c,i) => `
-      <div class="cmt-item">
-        <div class="cmt-hdr">
-          <span class="cmt-author">${esc(c.author)}</span>
-          <div style="display:flex;gap:12px;align-items:center;">
-            <span class="cmt-date">${c.date}</span>
-            <button class="btn-del-cmt" onclick="delCmt(${i})">삭제</button>
-          </div>
+  function renderComments(post) {
+    document.getElementById('comment-count-title').textContent=`💬 댓글 ${post.comments.length}개`;
+    const list=document.getElementById('comment-list');
+    if(!post.comments.length){list.innerHTML='<div class="no-comments">첫 댓글을 남겨주세요 ✦</div>';return;}
+    list.innerHTML=post.comments.map((c,i)=>`<div class="comment-item">
+      <div class="comment-header">
+        <span class="comment-author">✦ ${esc(c.author)}</span>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <span class="comment-date">${c.date}</span>
+          <button class="btn-del-comment" onclick="deleteComment(${i})">삭제</button>
         </div>
-        <div class="cmt-text">${esc(c.text)}</div>
-      </div>`).join('');
-  }
-  function submitComment() {
-    const author = document.getElementById('c-author').value.trim() || '독자';
-    const text   = document.getElementById('c-text').value.trim();
-    if (!text) { toast('댓글 내용을 입력해주세요'); return; }
-    let posts = getPosts();
-    const i = posts.findIndex(p => p.id === curId); if (i < 0) return;
-    const now = new Date();
-    posts[i].comments.push({ author, text, date: now.toLocaleDateString('ko-KR',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) });
-    savePosts(posts);
-    document.getElementById('c-author').value = '';
-    document.getElementById('c-pw').value = '';
-    document.getElementById('c-text').value = '';
-    renderCmts(posts[i]); toast('댓글이 등록되었습니다');
-  }
-  function delCmt(ci) {
-    if (!confirm('댓글을 삭제하시겠습니까?')) return;
-    let posts = getPosts();
-    const i = posts.findIndex(p => p.id === curId); if (i < 0) return;
-    posts[i].comments.splice(ci, 1); savePosts(posts); renderCmts(posts[i]);
+      </div>
+      <div class="comment-text">${esc(c.text)}</div></div>`).join('');
   }
 
-  // Categories
-  function renderCats(filterCat) {
-    const posts = getPosts();
-    const cm = {};
-    posts.forEach(p => { cm[p.category] = (cm[p.category]||0)+1; });
-    const keys = Object.keys(cm);
-    const cg = document.getElementById('catgrid');
-    const cf = document.getElementById('cat-filtered');
-    if (!keys.length) { cg.innerHTML = '<p style="color:var(--muted);font-size:.9rem;letter-spacing:.1em;">— 아직 기사가 없습니다 —</p>'; cf.innerHTML=''; return; }
-    if (filterCat !== undefined) activeCat = filterCat;
-    cg.innerHTML = keys.map(cat => `
-      <div class="catcard${activeCat===cat?' active':''}" onclick="renderCats('${cat.replace(/'/g,"\\'")}')">
-        <span class="cat-hj">${HJ[cat]||'記'}</span>
-        <div class="cat-nm">${esc(cat)}</div>
-        <div class="cat-cnt">${cm[cat]}편</div>
-      </div>`).join('');
-    if (activeCat && cm[activeCat]) {
-      const filtered = posts.filter(p => p.category === activeCat);
-      cf.innerHTML = `<div class="cat-filtered-title">「${esc(activeCat)}」 — ${filtered.length}편의 기사</div>
-        <div class="pgrid">${filtered.map(p=>`
-          <div class="pcard" onclick="openPost(${p.id},'category')">
-            <div class="card-img">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.title)}"/>`:`<span class="no-img-sm">${HJ[p.category]||'記'}</span>`}</div>
-            <div class="card-body">
-              <div class="cat-badge" style="margin-bottom:10px;">${esc(p.category)}</div>
-              <h3>${esc(p.title)}</h3>
-              <p class="excerpt">${esc(p.content.slice(0,80))}${p.content.length>80?'…':''}</p>
-            </div>
-            <div class="card-foot"><span>${p.date}</span><span>💬 ${p.comments.length}</span></div>
-          </div>`).join('')}</div>`;
-    } else { cf.innerHTML = ''; }
+  async function submitComment() {
+    const author=document.getElementById('c-author').value.trim()||'익명';
+    const text=document.getElementById('c-text').value.trim();
+    if(!text) return showToast('댓글 내용을 입력해주세요.');
+    const idx=posts.findIndex(p=>p.id===currentPostId); if(idx<0) return;
+    const now=new Date();
+    posts[idx].comments.push({author,text,date:now.toLocaleDateString('ko-KR',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})});
+    await savePosts();
+    document.getElementById('c-author').value='';
+    document.getElementById('c-password').value='';
+    document.getElementById('c-text').value='';
+    renderComments(posts[idx]);
+    showToast('댓글이 등록되었습니다 ✦');
   }
 
-  function toast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
+  async function deleteComment(i) {
+    if(!confirm('댓글을 삭제하시겠어요?')) return;
+    const idx=posts.findIndex(p=>p.id===currentPostId); if(idx<0) return;
+    posts[idx].comments.splice(i,1);
+    await savePosts();
+    renderComments(posts[idx]);
   }
 
-  renderList();
+  function renderCategories(filterCat) {
+    const map={};
+    posts.forEach(p=>{map[p.category]=(map[p.category]||0)+1;});
+    const grid=document.getElementById('cat-grid');
+    const cats=Object.keys(map);
+    if(!cats.length){grid.innerHTML='<p style="color:var(--muted);font-size:0.9rem;">아직 게시된 기사가 없어요.</p>';document.getElementById('cat-filtered').innerHTML='';return;}
+    if(filterCat) activeCat=filterCat;
+    grid.innerHTML=cats.map(c=>`<div class="cat-card ${activeCat===c?'active':''}" onclick="renderCategories('${c}')"><div class="cat-name">${c}</div><div class="cat-count">${map[c]}편</div></div>`).join('');
+    const cf=document.getElementById('cat-filtered');
+    if(activeCat&&map[activeCat]){
+      const filtered=posts.filter(p=>p.category===activeCat);
+      cf.innerHTML=`<div class="cat-filtered-title">「${activeCat}」 — 총 ${filtered.length}편</div>
+        <div class="post-grid">${filtered.map(p=>`<div class="post-card" onclick="openPost(${p.id})">
+          <div class="card-img">${p.image?`<img src="${p.image}" alt="${p.title}"/>`:`<div class="no-img-kanji">樂</div>`}</div>
+          <div class="card-body"><h3>${esc(p.title)}</h3><p class="post-excerpt">${esc(p.content.slice(0,75))}${p.content.length>75?'…':''}</p></div>
+          <div class="card-footer"><span class="post-meta">📅 ${p.date}</span><span class="post-meta">💬 ${p.comments.length}</span></div>
+        </div>`).join('')}</div>`;
+    } else { cf.innerHTML=''; }
+  }
+
+  function showToast(msg) {
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  initBin();
 </script>
 </body>
 </html>
